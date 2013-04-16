@@ -126,6 +126,10 @@ char * camera_fixup_setparams(int id, const char * settings)
             params.set(android::CameraParameters::KEY_ISO_MODE, "800");
     }
 
+#ifdef CAMERA_WITH_CITYID_PARAM
+    params.set(android::CameraParameters::KEY_CITYID, 0);
+#endif
+
     android::String8 strParams = params.flatten();
     char *ret = strdup(strParams.string());
 
@@ -339,7 +343,7 @@ int camera_cancel_picture(struct camera_device * device)
     if(!device)
         return -EINVAL;
 
-    return VENDOR_CALL(device, take_picture);
+    return VENDOR_CALL(device, cancel_picture);
 }
 
 int camera_set_parameters(struct camera_device * device, const char *params)

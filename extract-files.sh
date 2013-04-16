@@ -25,8 +25,8 @@ COMMONPROPS=../smdk4412-common/proprietary-files.txt
 
 mkdir -p ../../../vendor/$VENDOR/$COMMON/proprietary
 
-echo adb root
-echo adb wait-for-device
+adb root
+adb wait-for-device
 
 echo "Pulling common files..."
 for FILE in `cat $COMMONPROPS | grep -v ^# | grep -v ^$`; do
@@ -34,7 +34,7 @@ for FILE in `cat $COMMONPROPS | grep -v ^# | grep -v ^$`; do
     if [ ! -d $COMMONBASE/$DIR ]; then
         mkdir -p $COMMONBASE/$DIR
     fi
-    echo adb pull /$FILE $COMMONBASE/$FILE
+    adb pull /$FILE $COMMONBASE/$FILE
 done
 
 
@@ -58,11 +58,12 @@ LOCAL_PATH := vendor/samsung/smdk4412-common
 PRODUCT_PACKAGES += \\
     libTVOut \\
     libUMP \\
-    libfimc \\
-    libsecion
+    libfimc
 
 PRODUCT_COPY_FILES += \\
+    \$(LOCAL_PATH)/proprietary/sbin/cbd:root/sbin/cbd
 
+PRODUCT_COPY_FILES += \\
 EOF
 
 LINEEND=" \\"
@@ -72,7 +73,7 @@ for FILE in `cat $COMMONPROPS | grep -v ^# | grep -v ^$`; do
     if [ $COUNT = "0" ]; then
         LINEEND=""
     fi
-    echo "\t\$(LOCAL_PATH)/proprietary/$FILE:$FILE$LINEEND" >> $COMMONMAKEFILE
+    echo "    \$(LOCAL_PATH)/proprietary/$FILE:$FILE$LINEEND" >> $COMMONMAKEFILE
 done
 
 (cat << EOF) | sed s/__COMMON__/$COMMON/g | sed s/__VENDOR__/$VENDOR/g > $COMMONBASE/Android.mk
@@ -92,7 +93,7 @@ done
 
 LOCAL_PATH := \$(call my-dir)
 
-ifneq (\$(filter i9300 n7100 n8000 n8013,\$(TARGET_DEVICE)),)
+ifneq (\$(filter i9300 i9305 n7100 n8000 n8013 t0lte t0lteatt t0ltetmo i605 l900 r950,\$(TARGET_DEVICE)),)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := libTVOut
@@ -118,16 +119,6 @@ include \$(CLEAR_VARS)
 LOCAL_MODULE := libfimc
 LOCAL_MODULE_OWNER := samsung
 LOCAL_SRC_FILES := system/lib/libfimc.so
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_SUFFIX := .so
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-LOCAL_MODULE_PATH := \$(TARGET_OUT)/lib
-include \$(BUILD_PREBUILT)
-
-include \$(CLEAR_VARS)
-LOCAL_MODULE := libsecion
-LOCAL_MODULE_OWNER := samsung
-LOCAL_SRC_FILES := system/lib/libsecion.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_SUFFIX := .so
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES

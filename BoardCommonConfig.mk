@@ -29,6 +29,9 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_ARCH_VARIANT_CPU := cortex-a9
 ARCH_ARM_HAVE_NEON := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
+TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
+
 EXYNOS4X12_ENHANCEMENTS := true
 EXYNOS4_ENHANCEMENTS := true
 
@@ -70,7 +73,6 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_EGL_CFG := device/samsung/smdk4412-common/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 BOARD_USES_SKIAHWJPEG := true
-BOARD_EGL_NEEDS_LEGACY_FB := true
 COMMON_GLOBAL_CFLAGS += -DSEC_HWJPEG_G2D
 
 # Enable WEBGL in WebKit
