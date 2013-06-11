@@ -21,3 +21,5 @@ ifneq ($(filter i9300 i9305 n7100 n8000 n8013 t0lte t0lteatt t0ltetmo i605 l900 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
 endif
+
+LOCAL_CFLAGS += -fno-strict-aliasing
