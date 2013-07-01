@@ -40,7 +40,13 @@
     <string name="incall_min_value" translatable="false">1</string>
     <string name="audioout_max_value" translatable="false">63</string>
     <string name="audioout_warning_threshold" translatable="false">60</string>
-    <string name="audioout_default_value" translatable="false">0</string>
+    <string name="audioout_default_value" translatable="false">50</string>
     <string name="audioout_min_value" translatable="false">0</string>
+
+    <!-- HSPA -->
+    <bool name="has_hspa">true</bool>
+
+    <!-- Touchkey -->
+    <bool name="has_touchkey">true</bool>
 
 </resources>
